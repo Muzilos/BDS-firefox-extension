@@ -1,6 +1,10 @@
 var priceNumRegex = new RegExp("(\\d+\.\\d+)");
 var possibleIds = ["priceblock_ourprice", "priceblock_saleprice"];
 
+function onError(error) {
+    console.log(`Error: ${error}`);
+}
+
 function convertPrice() {
     var priceElm = null;
 
@@ -26,7 +30,7 @@ function convertPrice() {
         }
     }
     var getting = browser.storage.local.get("exchange_rate");
-    getting.then(displayPrice);
+    getting.then(displayPrice, onError);
 }
 
 convertPrice();
