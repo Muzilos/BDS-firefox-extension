@@ -1,0 +1,35 @@
+{
+
+  "manifest_version": 2,
+  "name": "Aussie Shopper",
+  "short_name": "AU Shopper",
+  "version": "1.0",
+  "author": "Alaa Salman",
+
+  "description": "Offers helpful functions to aid in the Aussie shopping experience.",
+
+  "icons": {
+    "48": "icons/1f6d2-48.png"
+  },
+
+  "content_scripts": [
+    {
+      "matches": ["*://*.amazon.com/*"],
+      "js": ["informer.js"]
+    }
+  ],
+
+"applications": {
+    "gecko": {
+      "id": "{8f37edbd-cdf5-4d0a-84af-d277f3f8bebd}"
+    }
+  },
+
+  "options_ui": {
+    "page": "options.html"
+  },
+
+  "permissions": ["storage"]
+
+
+}
