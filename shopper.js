@@ -8,7 +8,7 @@ function onError(error) {
 }
 
 function displayConvertedPrice(result) {
-    var audRate = result.exchange_rate || 1;
+    var audRate = result.exchange_rate || 1.3;
     var priceArray = priceNumRegex.exec(amznPriceElm.textContent);
     var productTitleElm = document.getElementById(productTitleId);
 
