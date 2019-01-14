@@ -1,13 +1,13 @@
 {
 
   "manifest_version": 2,
-  "name": "Aussie Shopper",
-  "short_name": "AU Shopper",
-  "version": "1.4",
-  "author": "Alaa Salman",
-  "homepage_url": "https://github.com/alaasalman/aussie-shopper-firefox-extension",
+  "name": "Ethical Shopper",
+  "short_name": "Ethical Shopper",
+  "version": "1.0",
+  "author": "Muzzammil Mehdi",
+  "homepage_url": "https://github.com/muzilos/ethical-shopper-firefox-extension",
 
-  "description": "Offers helpful functions to aid in the Aussie shopping experience.",
+  "description": "Offers helpful functions to aid in the shopping experience.",
 
   "icons": {
     "48": "icons/1f6d2-48.png"
