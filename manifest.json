@@ -13,14 +13,12 @@
     "48": "icons/1f6d2-48.png"
   },
 
-  "content_scripts": [
-    {
-      "matches": ["*://*.amazon.com/*"],
-      "js": ["shopper.js"]
-    }
-  ],
+  "content_scripts": [{
+    "matches": ["*://*.amazon.com/*"],
+    "js": ["shopper.js"]
+  }],
 
-"applications": {
+  "applications": {
     "gecko": {
       "id": "{8f37edbd-cdf5-4d0a-84af-d277f3f8bebd}"
     }

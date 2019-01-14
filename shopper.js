@@ -1,10 +1,54 @@
 var priceNumRegex = new RegExp("(\\d+\.\\d+)");
 var possibleIds = ["priceblock_ourprice", "priceblock_saleprice"];
 var productTitleId = "productTitle";
+var sellerNameId = "bylineInfo"
 var amznPriceElm = null;
 
 function onError(error) {
     console.error(`AussieShopper : Error ${error}`);
+}
+
+function getWikipediaSections(pageName) {
+    var wikiSections = `https://en.wikipedia.org/w/api.php?format=json&action=parse&prop=sections&page=${pageName}`
+    var sections = null
+    console.log(`Querying ${wikiSections}`)
+    jQuery.ajax({
+        type: "GET",
+        headers: {
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Credentials": "true"
+        },
+        url: wikiSections,
+        dataType: "json",
+        processData: true,
+        data: {},
+        error: function (xhr, request, error) {
+            var err = eval("(" + xhr.responseText + ")");
+            alert(err.message);
+        },
+        success: function (result) {
+            alert("HEKKI@");
+            sections = result;
+            alert(JSON.stringify(result));
+            if (sections['sections'].length == 0) {
+                getWikipediaSections(`${pageName} (company)`);
+            }
+            return sections;
+        }
+    });
+}
+
+function getControversies() {
+    var sellerName = document.getElementById(sellerNameId).textContent;
+    if (sellerName) {
+        console.log(`Seller name: ${sellerName}`);
+        try {
+            sections = getWikipediaSections(sellerName);
+        } catch (error) {
+            alert(err.message);
+        }
+        console.log(sections);
+    }
 }
 
 function displayConvertedPrice(result) {
@@ -21,7 +65,7 @@ function displayConvertedPrice(result) {
             previouslyDisplayedDiv.remove();
         }
 
-        if(productTitleElm){
+        if (productTitleElm) {
             productTitle = encodeURIComponent(productTitleElm.innerText);
         }
 
@@ -71,4 +115,5 @@ function lookForPrice() {
     }
 }
 
-lookForPrice();
+// lookForPrice();
+getControversies();
