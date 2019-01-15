@@ -5,37 +5,40 @@ var sellerNameId = "bylineInfo"
 var amznPriceElm = null;
 
 function onError(error) {
-    console.error(`AussieShopper : Error ${error}`);
+    console.error(`EthicalShopper : Error ${error}`);
+}
+function checkResponse(response) {
+    console.log(response.json());
+    console.log(JSON.stringify(response));
+}
+
+function getWikipediaToken() {
+    var loginUrl = "https://en.wikipedia.org/w/api.php?action=query&meta=tokens&format=json&type=login";
+    let headers = new Headers({
+        "Accept": "application/json"
+    });
+    let init = {
+        method: 'GET',
+        headers
+    };
+    let url = loginUrl;
+    let request = new Request(url, init);
+    fetch(request).then(checkResponse);
 }
 
 function getWikipediaSections(pageName) {
     var wikiSections = `https://en.wikipedia.org/w/api.php?format=json&action=parse&prop=sections&page=${pageName}`
-    var sections = null
-    console.log(`Querying ${wikiSections}`)
-    jQuery.ajax({
-        type: "GET",
-        headers: {
-            "Access-Control-Allow-Origin": "*",
-            "Access-Control-Allow-Credentials": "true"
-        },
-        url: wikiSections,
-        dataType: "json",
-        processData: true,
-        data: {},
-        error: function (xhr, request, error) {
-            var err = eval("(" + xhr.responseText + ")");
-            alert(err.message);
-        },
-        success: function (result) {
-            alert("HEKKI@");
-            sections = result;
-            alert(JSON.stringify(result));
-            if (sections['sections'].length == 0) {
-                getWikipediaSections(`${pageName} (company)`);
-            }
-            return sections;
-        }
+    let headers = new Headers({
+        "Accept": "application/json"
     });
+    let init = {
+        method: 'GET',
+        headers
+    };
+    let url = wikiSections;
+    let request = new Request(url, init);
+    fetch(request).then(checkResponse);
+    return sections;
 }
 
 function getControversies() {
@@ -45,9 +48,8 @@ function getControversies() {
         try {
             sections = getWikipediaSections(sellerName);
         } catch (error) {
-            alert(err.message);
+            alert(error);
         }
-        console.log(sections);
     }
 }
 
@@ -117,3 +119,5 @@ function lookForPrice() {
 
 // lookForPrice();
 getControversies();
+// getWikipediaSections("Anker");
+// getWikipediaToken();
