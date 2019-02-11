@@ -6,30 +6,21 @@
   "version": "1.0",
   "author": "Muzzammil Mehdi",
   "homepage_url": "https://github.com/muzilos/ethical-shopper-firefox-extension",
-
   "description": "Offers helpful functions to aid in the shopping experience.",
-
   "icons": {
     "48": "icons/1f6d2-48.png"
   },
-  "background": {
-    "scripts": ["background.js"]
-  },
   "content_scripts": [{
-    "matches": ["*://*.amazon.com/*"],
-    "js": ["shopper.js"]
+    "matches": ["<all_urls>"],
+    "js": ["./wordMap.js", "./substitute.js"]
   }],
-
   "applications": {
     "gecko": {
       "strict_min_version": "52.0a1"
     }
   },
-
   "permissions": [
     "webRequest",
     "*://en.wikipedia.org/*"
   ]
-
-
 }
