@@ -5,11 +5,11 @@
 /* exported sortedWordMap */
 
 let dictionary = new Map();
-dictionary.set('Nestle', 'Child-slavers');
-dictionary.set('Nestlé', 'Child-slavers');
-dictionary.set('Walmart', 'Human traffickers')
-dictionary.set('Wal-mart', 'Human traffickers')
-dictionary.set('Chiquita', 'Imperialist terrorists')
+dictionary.set('Nestle', 'Child-Slavers');
+dictionary.set('Nestlé', 'Child-Slavers');
+dictionary.set('Walmart', 'Human-Traffickers')
+dictionary.set('Wal-mart', 'Human-Traffickers')
+dictionary.set('Chiquita', 'Imperial-Terrorists')
 
 /*
  * After all the dictionary entries have been set, sort them by length.
