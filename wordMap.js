@@ -5,12 +5,18 @@
 /* exported sortedWordMap */
 
 let dictionary = new Map();
-dictionary.set('Nestle', 'Child-slavers');
-dictionary.set('Nestlé', 'Child-slavers');
-dictionary.set('Walmart', 'Human traffickers')
-dictionary.set('Wal-mart', 'Human traffickers')
-dictionary.set('Chiquita', 'Imperial terrorists')
-
+// dictionary.set('Nestle', 'Child-slavers');
+// dictionary.set('Nestlé', 'Child-slavers');
+// dictionary.set('Walmart', 'Human traffickers')
+// dictionary.set('Wal-mart', 'Human traffickers')
+// dictionary.set('Chiquita', 'Imperial terrorists')
+dictionary.set('Sabra', 'Sabra (BOYCOTT!)')
+dictionary.set('Puma', 'Puma (BOYCOTT!)')
+dictionary.set('Caterpillar Inc', 'Caterpillar Inc (BOYCOTT!)')
+dictionary.set('Caterpillar', 'Caterpillar (BOYCOTT!)')
+dictionary.set('Hewlett Packard', 'Hewlett Packard (BOYCOTT!)')
+dictionary.set('Ahava', 'Ahava (BOYCOTT!)')
+dictionary.set('SodaStream', 'SodaStream (BOYCOTT!)')
 /*
  * After all the dictionary entries have been set, sort them by length.
  *
