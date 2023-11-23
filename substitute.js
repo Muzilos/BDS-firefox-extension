@@ -9,86 +9,71 @@
 // Referenced here to reduce confusion.
 const wordMap = sortedWordMap;
 
-/*
- * For efficiency, create a word --> search RegEx Map too.
- */
 let regexs = new Map();
 for (let word of wordMap.keys()) {
-  // We want a global, case-insensitive replacement.
-  // @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp
   regexs.set(word, new RegExp(word, 'gi'));
 }
 
-/**
- * Substitutes words into text nodes.
- * If the node contains more than just text (ex: it has child nodes),
- * call replaceText() on each of its children.
- *
- * @param  {Node} node    - The target DOM Node.
- * @return {void}         - Note: the word substitution is done inline.
- */
-function replaceText (node) {
-  // Setting textContent on a node removes all of its children and replaces
-  // them with a single text node. Since we don't want to alter the DOM aside
-  // from substituting text, we only substitute on single text nodes.
-  // @see https://developer.mozilla.org/en-US/docs/Web/API/Node/textContent
-  if (node.nodeType === Node.TEXT_NODE) {
-    // This node only contains text.
-    // @see https://developer.mozilla.org/en-US/docs/Web/API/Node/nodeType.
+function isEditableElement(node) {
+  return node.nodeName === 'TEXTAREA' || node.nodeName === 'INPUT' || node.isContentEditable;
+}
 
-    // Skip textarea nodes due to the potential for accidental submission
-    // of substituted word where none was intended.
-    if (node.parentNode &&
-        node.parentNode.nodeName === 'TEXTAREA') {
-      return;
-    }
-
-    // Because DOM manipulation is slow, we don't want to keep setting
-    // textContent after every replacement. Instead, manipulate a copy of
-    // this string outside of the DOM and then perform the manipulation
-    // once, at the end.
-    let content = node.textContent;
-
-    // Replace every occurrence of 'word' in 'content' with its word.
-    // Use the wordMap for replacements.
-    for (let [word, replacement] of wordMap) {
-      // Grab the search regex for this word.
-      const regex = regexs.get(word);
-
-      // Actually do the replacement / substitution.
-      // Note: if 'word' does not appear in 'content', nothing happens.
-      content = content.replace(regex, replacement);
-    }
-
-    // Now that all the replacements are done, perform the DOM manipulation.
-    node.textContent = content;
+function getCaretPosition(editableDiv) {
+  let caretPos = 0;
+  if (window.getSelection) {
+    const range = window.getSelection().getRangeAt(0);
+    const preCaretRange = range.cloneRange();
+    preCaretRange.selectNodeContents(editableDiv);
+    preCaretRange.setEnd(range.endContainer, range.endOffset);
+    caretPos = preCaretRange.toString().length;
   }
-  else {
-    // This node contains more than just text, call replaceText() on each
-    // of its children.
-    for (let i = 0; i < node.childNodes.length; i++) {
-      replaceText(node.childNodes[i]);
-    }    
+  return caretPos;
+}
+
+function setCaretPosition(editableDiv, position) {
+  if (window.getSelection && document.createRange) {
+    const range = document.createRange();
+    range.selectNodeContents(editableDiv);
+    range.setStart(editableDiv, position);
+    range.collapse(true);
+    const sel = window.getSelection();
+    sel.removeAllRanges();
+    sel.addRange(range);
   }
 }
 
-// Start the recursion from the body tag.
+function replaceText(node) {
+  if (node.nodeType === Node.TEXT_NODE && !isEditableElement(node.parentNode)) {
+    let content = node.textContent;
+
+    for (let [word, replacement] of wordMap) {
+      const regex = regexs.get(word);
+      content = content.replace(regex, replacement);
+    }
+
+    node.textContent = content;
+  } else if (!isEditableElement(node)) {
+    for (let i = 0; i < node.childNodes.length; i++) {
+      replaceText(node.childNodes[i]);
+    }
+  }
+}
+
 replaceText(document.body);
 
-// Now monitor the DOM for additions and substitute word into new nodes.
-// @see https://developer.mozilla.org/en-US/docs/Web/API/MutationObserver.
 const observer = new MutationObserver((mutations) => {
   mutations.forEach((mutation) => {
     if (mutation.addedNodes && mutation.addedNodes.length > 0) {
-      // This DOM change was new nodes being added. Run our substitution
-      // algorithm on each newly added node.
       for (let i = 0; i < mutation.addedNodes.length; i++) {
         const newNode = mutation.addedNodes[i];
-        replaceText(newNode);
+        if (!isEditableElement(newNode)) {
+          replaceText(newNode);
+        }
       }
     }
   });
 });
+
 observer.observe(document.body, {
   childList: true,
   subtree: true

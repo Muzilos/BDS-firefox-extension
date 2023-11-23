@@ -3,7 +3,7 @@
   "manifest_version": 2,
   "name": "BDS Helper",
   "short_name": "BDS Helper",
-  "version": "1.0",
+  "version": "1.0.1",
   "author": "Muzzammil Mehdi",
   "homepage_url": "https://github.com/muzilos/ethical-shopper-firefox-extension",
   "description": "Offers helpful functions to aid in the shopping experience.",

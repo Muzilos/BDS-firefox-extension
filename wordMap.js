@@ -5,18 +5,20 @@
 /* exported sortedWordMap */
 
 let dictionary = new Map();
-// dictionary.set('Nestle', 'Child-slavers');
-// dictionary.set('Nestlé', 'Child-slavers');
-// dictionary.set('Walmart', 'Human traffickers')
-// dictionary.set('Wal-mart', 'Human traffickers')
-// dictionary.set('Chiquita', 'Imperial terrorists')
-dictionary.set('Sabra', 'Sabra (BOYCOTT!)')
-dictionary.set('Puma', 'Puma (BOYCOTT!)')
-dictionary.set('Caterpillar Inc', 'Caterpillar Inc (BOYCOTT!)')
-dictionary.set('Caterpillar', 'Caterpillar (BOYCOTT!)')
-dictionary.set('Hewlett Packard', 'Hewlett Packard (BOYCOTT!)')
-dictionary.set('Ahava', 'Ahava (BOYCOTT!)')
-dictionary.set('SodaStream', 'SodaStream (BOYCOTT!)')
+dictionary.set('Sabra', '❌Sabra❌')
+dictionary.set('Puma', '❌Puma❌')
+dictionary.set('Caterpillar Inc', '❌Caterpillar Inc❌')
+dictionary.set('Caterpillar', '❌Caterpillar❌')
+dictionary.set('Hewlett Packard', '❌Hewlett Packard❌')
+dictionary.set('HP', '❌HP❌')
+dictionary.set('Ahava', '❌Ahava❌')
+dictionary.set('SodaStream', '❌SodaStream❌')
+dictionary.set('Siemens', '❌Siemens❌')
+dictionary.set('AXA', '❌AXA❌')
+dictionary.set('Starbucks', '❌Starbucks❌')
+dictionary.set('Marvel', '❌Marvel❌')
+dictionary.set('Elbit', '❌Elbit❌')
+
 /*
  * After all the dictionary entries have been set, sort them by length.
  *
