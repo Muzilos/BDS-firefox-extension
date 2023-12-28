@@ -47,7 +47,7 @@ function replaceText(node) {
     let content = node.textContent;
 
     for (let [word, replacement] of wordMap) {
-      const regex = regexs.get(word);
+      const regex = new RegExp(`\\b${word}\\b`, 'g');
       content = content.replace(regex, replacement);
     }
 

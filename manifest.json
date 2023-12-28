@@ -3,9 +3,9 @@
   "manifest_version": 2,
   "name": "BDS Helper",
   "short_name": "BDS Helper",
-  "version": "1.0.1",
+  "version": "1.0.3",
   "author": "Muzzammil Mehdi",
-  "homepage_url": "https://github.com/muzilos/ethical-shopper-firefox-extension",
+  "homepage_url": "https://github.com/muzilos/BDS-firefox-extension",
   "description": "Offers helpful functions to aid in the shopping experience.",
   "icons": {
     "48": "icons/1f6d2-48.png"
@@ -14,7 +14,7 @@
     "matches": ["<all_urls>"],
     "js": ["./wordMap.js", "./substitute.js"]
   }],
-  "applications": {
+  "browser_specific_settings": {
     "gecko": {
       "strict_min_version": "52.0a1"
     }
